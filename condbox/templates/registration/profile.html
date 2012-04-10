@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block content %}
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+
+                {% include "includes/sidebar.html" %}
+
+                <div class="span10">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="page-header">
+                                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                            </div>
+                            <div class="row-fluid">
+                                <legend>Dados pessoais</legend>
+                                <div class="span12 well">
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>Nome:</strong></div>
+                                        <div class="span10">{{ user.first_name }}</div>
+                                    </div>
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>Sobrenome:</strong></div>
+                                        <div class="span10">{{ user.last_name }}</div>
+                                    </div>
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>Usuário:</strong></div>
+                                        <div class="span10">{{ user.username }}</div>
+                                    </div>
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>E-mail:</strong></div>
+                                        <div class="span10">{{ user.email }}</div>
+                                    </div>
+                                    <div style="float: right;">
+                                        <a href="#" class="btn btn-mini btn-primary">Alterar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Body content-->
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

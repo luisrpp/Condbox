@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="span4">
+			{% if not created %}
+        	<h2>Criar conta no Condbox</h2>
+	        	<form class="well" action="." method="POST">
+	        	{% csrf_token %}
+	           	{{ form.as_p }}
+	           	<input type="submit" value="Criar Conta" class="btn primary btn-primary">
+        	</form>
+			{% else %}
+	        <h2>Por favor, verifique seu e-mail para completar a ativação da conta!</h2>
+			{% endif %}
+		</div>
+	</div>
+{% endblock content %}

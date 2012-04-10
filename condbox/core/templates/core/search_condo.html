@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block add_style %}
+    <style>
+        #spinner {
+          display: none;
+          position: relative;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+
+                {% include "includes/sidebar.html" %}
+
+                <div class="span10">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="page-header">
+                                <h2>Buscar condomínio</h2>
+                            </div>
+                            <form class="well form-inline" onSubmit="return false;">
+                                {% csrf_token %}
+                                <label>Condomínio:</label>
+                                {{ form.condo }}&nbsp;&nbsp;
+                                <label>Estado:</label>
+                                <select id="{{ form.uf.name }}" name="{{ form.uf.name }}" class="span1">
+                                    <option value="">--</option>
+                                    {% for uf in form.uf.field.choices %}
+                                    <option value="{{ uf.0 }}">{{ uf.0 }}</option>
+                                    {% endfor %}
+                                </select>&nbsp;&nbsp;
+                                <label>Cidade:</label>
+                                {{ form.cidade }}&nbsp;&nbsp;
+                                <button id="searchSubmit" class="btn" type="submit">Buscar</button>
+                            </form>
+                            <hr>
+                            <div class="row-fluid">
+                                <div class="span12" align="center" id="spinner">
+                                    <img src="{{ STATIC_URL }}img/spinner.gif"/>
+                                </div>
+                            </div>
+                            <div id="results"></div>
+                         </div>
+                    </div>
+                    <!--Body content-->
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+        $( document ).ready( function() {
+            $( '#searchSubmit' ).click( function() {
+                {{ form.condo.name }} = $( '#{{ form.condo.name }}' ).val();
+                {{ form.uf.name }} = $( '#{{ form.uf.name }}' ).val();
+                {{ form.cidade.name }} = $( '#{{ form.cidade.name }}' ).val();
+                $( '#results' ).html( '&nbsp;' ).load( '{% url 'core:ajax_condo_search' %}?{{ form.condo.name }}='
+                    + {{ form.condo.name }} + '&{{ form.uf.name }}=' + {{ form.uf.name }} +
+                    '&{{ form.cidade.name }}=' + {{ form.cidade.name }});
+            });
+        });
+
+        $( document ).ajaxStart( function() {
+            $( '#spinner' ).show();
+        }).ajaxStop( function() {
+            $( '#spinner' ).hide();
+        });
+    </script>
+{% endblock %}

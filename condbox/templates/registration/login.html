@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block add_style %}
+{% endblock add_style %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="span3">
+            <h2>Login</h2>
+            {% if form.errors %}
+                <div class="alert alert-error">
+                    Usuário ou senha inválidos!
+                </div>
+            {% endif %}
+
+            <form class="well" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <div class="clearfix">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                    </div>
+                    <div class="clearfix">
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                    </div>
+                    <button class="btn primary btn-primary" type="submit">Entrar</button>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

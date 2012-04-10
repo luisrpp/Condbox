@@ -1,0 +1,38 @@
+[
+    {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "luisrpp",
+            "first_name": "Luis Roberto",
+            "last_name": "Pereira de Paula",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2012-03-20 15:28:08",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$3fc00$4b7af44f000999428f5296334f868d2518de81ff",
+            "email": "luisrpp@gmail.com",
+            "date_joined": "2012-03-20 15:27:50"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "auth.user",
+        "fields": {
+            "username": "mashiba",
+            "first_name": "Leonardo",
+            "last_name": "Mashiba",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2012-03-20 15:28:46",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$3dde7$0985747db796bf94d26dc025799d617ef5f8aebd",
+            "email": "mashib@gmail.com",
+            "date_joined": "2012-03-20 15:28:46"
+        }
+    }
+]

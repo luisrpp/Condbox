@@ -1,0 +1,23 @@
+{% load url from future %}
+{% if results|length %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="span2">Condomínio</th>
+                <th class="span1">Estado</th>
+                <th class="span2">Cidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for condominio in results %}
+            <tr>
+                <td><a href="{{ condominio.get_absolute_url }}">{{ condominio.nome }}</a></td>
+                <td>{{ condominio.cidade.uf }}</td>
+                <td>{{ condominio.cidade.nome }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhum registro encontrado!</p>
+{% endif %}

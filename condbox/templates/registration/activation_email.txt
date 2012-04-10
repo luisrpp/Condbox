@@ -1,0 +1,12 @@
+{% load i18n %}
+Olá,
+
+Voce criou uma conta no {{ site.name }}, que necessita ser ativada.
+Para fazer isso, por favor, confirme clicando no link abaixo:
+http://{{ site.domain }}/accounts/activate/{{ activation_key }}/
+
+Se sua conta não for ativada dentro de {{ expiration_days }} dias,
+será necessário realizar um novo cadastro.
+
+Atenciosamente,
+Equipe {{ site.name }}

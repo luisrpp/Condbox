@@ -1,0 +1,46 @@
+{% load url from future %}
+{% load gravatar %}
+{% load tags %}
+
+                <div class="span2">
+
+                    <div class="thumbnail">
+                        <img src="{% gravatar user.email %}" alt="">
+                    </div>
+
+                    <div style="padding: 8px 0;" class="well">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Meu perfil</li>
+                            <li class="{% active request "/accounts/profile/" %}">
+                                <a href="/accounts/profile/">
+                                    <i class="icon-user"></i>
+                                    Perfil
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-cog"></i>
+                                    Configurações
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-flag"></i>
+                                    Ajuda
+                                </a>
+                            </li>
+                            <li class="nav-header">Condomínio</li>
+                            <li>
+                                <a href="#">
+                                    Meu Condomínio
+                                </a>
+                            </li>
+                            <li class="{% active request "/search_condo/" %}">
+                                <a href="{% url 'core:search_condo' %}">
+                                    Buscar
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Sidebar content-->
+                </div>

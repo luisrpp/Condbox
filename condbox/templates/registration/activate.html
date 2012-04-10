@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+	{% if account %}
+	<div class="hero-unit alert alert-success">
+	    <h2>Ativação realizada com sucesso!</h2>
+	    {% url auth_login as login_url %}
+	    <p>Sua conta já foi ativada. Clique no botão abaixo para efetuar o login:</p>
+	    <p>
+            <a class="btn btn-primary btn-large" href="/accounts/login/">Login</a>
+        </p>
+    </div>
+	{% else %}
+	<div class="hero-unit alert alert-error">
+	    <h2>A ativação da conta falhou!</h2>
+	    <p>Ocorreu um erro durante a ativação da conta. O código de ativação pode não estar correto, ou sua conta já foi ativada.</p>
+	</div>
+	{% endif %}
+
+{% endblock content %}

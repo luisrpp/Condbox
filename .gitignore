@@ -1,0 +1,11 @@
+bin
+build
+include
+lib
+local
+Scripts
+.Python
+*.py~
+*.pyc
+database.db
+.DS_Store

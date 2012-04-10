@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block add_style %}
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+{% endblock %}
+
+{% block content %}
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+
+                {% include "includes/sidebar.html" %}
+
+                <div class="span10">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="page-header">
+                                <h2>Condomínio {{ condominio.nome }}</h2>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span12 well">
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>Condomínio:</strong></div>
+                                        <div class="span10">{{ condominio.nome }}</div>
+                                    </div>
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>Endereço:</strong></div>
+                                        <div class="span10">{{ condominio.endereco }}, {{condominio.numero}}{% if condominio.complemento %} - {{condominio.complemento}}{% endif %}</div>
+                                    </div>
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>Bairro:</strong></div>
+                                        <div class="span10">{{ condominio.bairro }}</div>
+                                    </div>
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>Cidade:</strong></div>
+                                        <div class="span10">{{ condominio.cidade.nome }} - {{ condominio.cidade.uf }}</div>
+                                    </div>
+                                    <div class="row-fluid" style="margin-bottom: 5px;">
+                                        <div class="span2" style="width: 10%" align="right"><strong>CEP:</strong></div>
+                                        <div class="span10">{{ condominio.cep }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row-fluid">
+                                    <div class="span7">
+                                        <div class="page-header">
+                                            <h3>Moradores</h3>
+                                        </div>
+                                        <p>Nenhum morador cadastrado!</p>
+                                    </div>
+                                    <div class="span5">
+                                        <div id="map_canvas" style="height: 250px; width: 350px; border: 1px solid black;"></div>
+                                        <!--Google Maps-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Body content-->
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+        var geocoder;
+        var map;
+        var infowindow = new google.maps.InfoWindow();
+        var marker;
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(-23.5489433, -46.6388182);
+            var myOptions = {
+                zoom: 15,
+                center: latlng,
+                mapTypeId: 'roadmap'
+            }
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            var address = '{{ condominio.endereco }}, {{condominio.numero}} - {{ condominio.cidade.nome }}, {{ condominio.cidade.uf }}';
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location});
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                }
+            );
+        }
+
+        window.onload = initialize();
+    </script>
+{% endblock %}
