@@ -51,7 +51,7 @@ def condo(request, slug):
     condominio = get_object_or_404(Condominio, slug=slug)
 
     is_morador = Morador.objects.filter(condominio=condominio, user=request.user).exists()
-    moradores = Morador.objects.filter(condominio=condominio).order_by('user')
+    moradores = Morador.objects.filter(condominio=condominio).order_by('user__username')
 
     template = 'core/condo.html'
     data = {
