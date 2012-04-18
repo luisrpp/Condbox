@@ -139,7 +139,7 @@ INSTALLED_APPS = (
     'registration',
     # My apps
     'condbox.core',
-    'condbox.embed',
+    'embed',
     'municipios',
 )
 
