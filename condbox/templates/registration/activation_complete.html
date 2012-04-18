@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+		<div class="hero-unit alert alert-success">
+			<h2>Conta ativada!</h2>
+			<p>Obrigado por registrar sua conta no {{ site.name }}! Agora você pode proceder com o <a href="/accounts/login" class="btn">log-in</a>.</p>
+		</div>
+
+{% endblock content %}
