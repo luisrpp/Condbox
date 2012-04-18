@@ -2,11 +2,14 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
+from datetime import datetime
+
 from forms import CondoSearchForm
-from models import Condominio
+from models import Condominio, Morador
 
 
 @login_required
@@ -47,10 +50,25 @@ def ajax_condo_search(request):
 def condo(request, slug):
     condominio = get_object_or_404(Condominio, slug=slug)
 
+    is_morador = Morador.objects.filter(condominio=condominio, user=request.user).exists()
+    moradores = Morador.objects.filter(condominio=condominio).order_by('user')
+
     template = 'core/condo.html'
     data = {
         'condominio': condominio,
+        'moradores': moradores,
+        'is_morador': is_morador,
     }
     context = RequestContext(request)
 
     return render_to_response(template, data, context)
+
+
+@login_required
+def add_dweller(request, slug):
+    condominio = get_object_or_404(Condominio, slug=slug)
+
+    morador = Morador(condominio=condominio, user=request.user, data_inicio=datetime.now())
+    morador.save()
+
+    return HttpResponseRedirect(condominio.get_absolute_url())

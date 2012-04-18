@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load url from future %}
+{% load gravatar %}
 
 {% block add_style %}
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
@@ -47,7 +48,24 @@
                                         <div class="page-header">
                                             <h3>Moradores</h3>
                                         </div>
+                                        {% if moradores|length %}
+                                        <ul class="thumbnails">
+                                        {% for morador in moradores %}
+                                            <li class="span1">
+                                                <div class="thumbnail">
+                                                    <img src="{% gravatar morador.user.email %}" alt="">
+                                                    <small>{{ morador.user.username }}</small>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                        {% else %}
                                         <p>Nenhum morador cadastrado!</p>
+                                        {% endif %}
+                                        {% if not is_morador %}
+                                        <a href="{{ condominio.get_absolute_url }}add_dweller" class="btn btn-mini btn-primary">Eu moro aqui!</a>
+                                        {% endif %}
+                                        <hr>
                                     </div>
                                     <div class="span5">
                                         <div id="map_canvas" style="height: 250px; width: 350px; border: 1px solid black;"></div>

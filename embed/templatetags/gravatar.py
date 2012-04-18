@@ -32,6 +32,7 @@ class GravatarNode(template.Node):
         site = Site.objects.get_current()
 
         default = "http://%s%simg/avatar.png" % (site.domain, settings.STATIC_URL)
+        print default
         size = settings.GRAVATAR_SIZE
 
         gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
